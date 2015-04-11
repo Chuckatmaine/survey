@@ -1,0 +1,9 @@
+<%= f.fields_for :question_groups, question do |g| %>
+  <li>
+    <%= g.label :title, 'Group' %>
+    <%= g.text_field :title %>
+    <%= g.label :position, 'Position' %>
+    <%= g.text_field :position, :size => 2 %>
+    <%= g.collection_select :parent_id, @survey.question_groups, :id, :title, {:prompt => 'Select Group'}  %>
+  </li>
+<% end %>

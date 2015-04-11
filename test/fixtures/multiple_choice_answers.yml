@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  multiple_choice_option_id: 1
+  answer_set_id: 1
+
+two:
+  multiple_choice_option_id: 1
+  answer_set_id: 1

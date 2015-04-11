@@ -1,0 +1,10 @@
+<%= f.fields_for :question_groups, question do |g| %>
+    <%= g.label :title, 'Group' %>
+    <%= g.text_field :title, :size => 100 %><br/>
+    <%= g.label :position, 'Position' %>
+    <%= g.text_field :position, :size => 2 %>
+    <%= g.collection_select :parent_id, @survey.question_groups, :id, :title, {:prompt => 'Select Group'}  %>
+    <%= g.check_box :_destroy %>
+    <%= g.label :_destroy, "Remove Group" %>
+    <%= g.hidden_field :type %>
+<% end %>

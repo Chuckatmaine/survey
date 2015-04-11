@@ -1,0 +1,26 @@
+<p>
+  <b>Title:</b>
+  <%=h @survey.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @survey.description %>
+</p>
+
+<%= form_for(@answer_set,:url => { :action => :submit, :id => @survey }) do |f| %>
+  <% if @answer_set.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@answer_set.errors.count, "error") %> prohibited this survey from being submitted:</h2>
+
+      <ul>
+      <% @answer_set.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<%= display_questions_take @survey, @answer_set, f  %>
+<%= f.submit 'Submit your answers' %>
+<% end %>
+

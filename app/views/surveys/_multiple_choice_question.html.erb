@@ -1,0 +1,11 @@
+  <% if question.required %>
+    <span id=red> Required: </span>
+  <% end %>
+  <%= question.title %>
+  <ol>
+    <% question.multiple_choice_options.each do |option| %>
+      <li>
+      <%= option.title %>
+      </li>
+    <% end %>
+  </ol>

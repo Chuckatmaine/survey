@@ -1,0 +1,46 @@
+<h1>Listing surveys</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Status</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @surveys.each do |survey| %>
+  <tr>
+    <td><%=h survey.title %></td>
+    <% unless survey.user_taken(current_user) %>
+      <% if survey.started? && !survey.ended? %>
+        <td><%= link_to 'Take', :action => :take, :id => survey.id %></td>
+      <%elsif survey.ended? %>
+        <td>Ended</td>
+      <%else %>
+        <td>Not Started</td>
+      <%end%>
+    <% else %>
+      <td>Taken</td>
+    <%end%>
+    <% if current_user.admin? || survey.owner == current_user || survey.editors.exists?(current_user)%>
+      <td><%= link_to 'Show', survey %></td>
+      <td><%= link_to 'Edit', edit_survey_path(survey) %></td>
+      <td><%= link_to 'Report', report_survey_path(survey) %></td>
+      <td><%= link_to 'Export Results', export_results_survey_path(survey) %></td>
+      <td><%= link_to 'Destroy', survey, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% else %>
+      <td></td>
+      <td></td>
+      <td></td>
+    <%end%>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<% if current_user.admin? %>
+<%= link_to 'New survey', new_survey_path %>
+<%end%>

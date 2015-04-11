@@ -1,0 +1,25 @@
+<% question.multiple_choice_options.build %>
+<%= f.fields_for :multiple_choice_questions, question do |q| %>
+    <%= q.label :title, 'Question' %>
+    <%= q.text_field :title, :size => 100 %><br/>
+    <%= q.check_box :required%>
+    <%= q.label :title, 'Required?' %>
+    <%= q.label :position, 'Position' %>
+    <%= q.text_field :position, :size => 2 %>
+    <%= q.collection_select :parent_id, @survey.question_groups, :id, :title, {:prompt => 'Select Group'}  %>
+    <%= q.check_box :_destroy %>
+    <%= q.label :_destroy, "Remove Question" %>
+    <%= q.hidden_field :type %>
+    <ul>
+      <%= q.fields_for :multiple_choice_options do |o| %>
+        <li>
+        <%= o.label :title, 'Answer' %>
+        <%= o.text_field :title %>
+        <%= o.label :position, 'Position' %>
+        <%= o.text_field :position, :size => 2 %>
+        <%= o.check_box :_destroy %>
+        <%= o.label :_destroy, "Remove Answer" %>
+        </li>
+      <% end %>
+    </ul>
+<% end %>

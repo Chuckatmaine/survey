@@ -1,0 +1,107 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @survey.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @survey.description %>
+</p>
+
+<p>
+  <b>Number of submissions:</b>
+  <%= @survey.submissions.count %>
+</p>
+
+<script type="text/javascript" charset="utf-8">
+  var chart;
+  $(document).ready(function() {
+    chart = new Highcharts.Chart({
+      chart: {
+        renderTo: "totals_chart"
+      },
+      title: {
+        text: "Total answers by primary affiliation"
+      },
+      tooltip: {
+        formatter: function() {
+                return '<b>'+ this.point.name +'</b>: '+ this.y;
+        }
+      },
+      plotOptions: {
+        pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        formatter: function() {
+                                return '<b>'+ this.point.name +'</b>: '+ this.y;
+                        }
+                }
+        }
+      },
+      series: [{
+                type: 'pie',
+                name: 'Total answers',
+                data: [
+                        <% @affiliation_totals.map do |title, total| %>
+                          ['<%= title %>', <%= total %>],
+                        <% end %>
+                ]
+        }]
+    });
+  });
+</script>
+<div id="totals_chart" style="width:850px; height:300px;"></div><br/>
+<% @questions.map do |title, stuff| %>
+  <script type="text/javascript" charset="utf-8">
+    var chart_<%= stuff[:id] %>;
+    $(document).ready(function() {
+      chart_<%= stuff[:id] %> = new Highcharts.Chart({
+        chart: {
+          renderTo: "chart_<%= stuff[:id] %>"
+        },
+        title: {
+          text: ""
+        },
+        xAxis: {
+          categories: <%= stuff[:categories].inspect.html_safe %>
+        },
+        yAxis: {
+          min: 0,
+          title: {
+                text: 'Number'
+          }
+        },
+        tooltip: {
+          formatter: function() {
+            return ''+ this.x +': '+ this.y;
+          }
+        },
+        plotOptions: {
+          column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+          }
+        },
+        series: [
+        <% stuff[:series].each do | series_hash | %>
+           {
+                  type: '<%= series_hash[:type] %>',
+                  name: "<%= series_hash[:name] %>",
+                  data: <%= series_hash[:data].inspect.html_safe %>
+          },
+        <% end %>
+        ]
+      });
+    });
+  </script>
+<% end %>
+<%= display_questions_report @survey %>
+
+<%= link_to 'Edit', edit_survey_path(@survey) %> |
+<%= link_to 'Back', surveys_path %>

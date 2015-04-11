@@ -1,0 +1,28 @@
+<h1>Editing group</h1>
+
+<% form_for(@group) do |f| %>
+  <% if @group.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
+
+      <ul>
+      <% @group.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+  <%= f.label :user_ids, "Users" %><br />
+  <%= f.collection_select( :user_ids, User.all, :id, :username, {}, {:multiple => true}) %>
+  </p>
+  <p>
+    <%= f.submit 'update' %>
+  </p>
+<% end %>
+<%= link_to 'show', @group %> |
+<%= link_to 'back', groups_path %>

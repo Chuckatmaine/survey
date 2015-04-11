@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>>University of Maine at Augusta - Surveys</title>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag :defaults %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+<div id="main">
+  <div id="header">
+    <img src=<%= image_path("UMAlogo.jpg") %> alt="UMA Logo" />
+    <h1>Surveys</h1>
+  </div>
+
+  <HR/>
+
+  <p id="notice"><%= notice %></p>
+
+  <div id="content">
+    <%= yield %>
+  </div>
+</div>
+
+</body>
+</html>

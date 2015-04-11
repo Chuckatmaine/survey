@@ -1,0 +1,12 @@
+  <%= question.title %>
+  <br/>
+  <% mca = answer_set.multiple_choice_answers.build %>
+  <% answer_set.multiple_choice_answers.each do |temp| %>
+    <% mca = temp if temp.multiple_choice_question_id == question.id %>
+  <% end %>
+    <%= f.fields_for :multiple_choice_answers, mca do |mcaf| %>
+        <% question.multiple_choice_options.each do |mco| %>
+          <%= mcaf.radio_button(:multiple_choice_option_id, mco.id) %><%=h mco.title%><br/>
+          <%= mcaf.hidden_field(:multiple_choice_question_id, :value => question.id) %>
+        <% end %>
+    <% end %>

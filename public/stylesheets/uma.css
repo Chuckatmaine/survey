@@ -1,0 +1,42 @@
+body {
+  background : url(../images/bg.png);
+}
+
+div#header {
+  text-align: center;
+}
+div#main {
+  width : 900px;
+  background : #fff;
+  margin : 30px auto;
+}
+div#content {
+  padding : 1em;
+}
+div#content * {
+  color : #3c3c3c;
+  font-family : Arial, Sans-serif;
+}
+div#content p {
+  line-height : 1.2em;
+  letter-spacing : .1em;
+  font-size : .9em;
+}
+div#content h1 {
+  font-size : 175%;
+  color : #005378;
+}
+div#content h2 {
+  font-size : 150%;
+  color : #005378;
+}
+div.centered {
+  text-align: center;
+}
+span#red {
+  color : #ff0000;
+}
+span#green {
+  color : #00ff00;
+}
+
